@@ -1,0 +1,263 @@
+== What is Mongo DB?
+
+    Mongo DB is an open-source NoSQL database management program 
+
+
+== How does Mongo DB work?
+
+    MongoDB is a NoSQL , document oriented database management system that stores data as JSON-like documents. it is flexible and scalable. It uses a dynamic schema, allowing for changes in the document and structure to be made without affecting all other documents in the collection. 
+
+
+== Where is MongoDB used?
+
+    MongoDB is used as a backend database in web applications.
+    MongoDB uses Mozilla's SpiderMonkey javascript engine.
+
+
+==What is Relational DB?
+
+.Relational DB stores data in tables with rows and columns
+    .Tables link together using unique identifiers (keys) to show relationships
+    .This structure keeps data organized, consistent, and easy to query
+    .Common in many applications, uses SQL for data manipulation 
+
+
+==What is Non-relational DB?
+
+    .Stores data flexibly, not in strict tables like relational database
+    .Uses various structures like documents, graphs, or key-value pairs
+    .More scalable for big data and handles unstructured data well
+    .Examples: MongoDB , Couchbase , Cassandra
+
+
+==What is Mongoose?
+
+    .Mongoose: An Object Data Modeling (ODM) library for Node.js that simplifies interacting with MongoDB databases.
+    .Schema-based: Defines data structure and enforces validation for your MongoDB data.
+    .CRUD operations: Handles Create, Read, Update, and Delete operations efficiently.
+    .Node.js integration: Makes working with MongoDB from Node.js applications easier.
+
+
+==Collection
+
+    .A collection is a grouping of MongoDB documents
+    .Documents within a collection can have different structures
+
+
+==Documents
+
+    .Documents are the fundamental unit of data storage in MongoDB.
+    .Each document is like a record, organized as key-value pairs (fields and values) similar to JSON objects.
+    .Documents within a collection can have different structures, allowing for flexibility in data storage.
+    .While structures can vary, documents in a collection often share some common fields for related data.
+
+
+==JSON
+
+    JSON is a data format that represents the values of objects, arrays, numbers,strings,booleans,and nulls.
+
+    Example:
+
+        {"name": "Alice",
+        "age": 30,
+        "city": "New York",
+        "occupation": "Software Engineer",
+        "hobbies": ["reading", "hiking", "coding"]}
+
+    JSON.stringify()  >>>  This method is used to convert a Javascript object or value in to a JSON string.it takes the object as an argument and returns the JSON representation as a string.
+
+    JSON.parse()   >>> This method is used to parse a JSON string and convert it into a javascript object or value. it takes the JSON string as an argument and returns the corresponding Jvascript object . 
+    
+
+==BSON
+
+    MongoDB stores documents (objects) in a format called BSON.
+    The reason why BSON is used is, BSON supports supports many more data types than JSON. 
+    BSON is a binary format, making it more efficient for storage and network transmission compared to text-based JSON. 
+
+
+==Extended JSON
+
+    Extended JSON is used to represent BSON data types.
+
+
+==CRUD
+
+    CRUD stands for Create, Read, Update, Delete. The fundamental operations for managing data in a database.
+
+    Create >> 
+        Inserting a single Document:
+            db.collectionName.insertOne({ name: "Alice", age: 30 })
+
+        Insert multiple Documents :
+            db.collectionName.insertMany([
+                { name: "Bob", age: 25 },
+                { name: "Charlie", age: 40 }
+            ])
+
+    Read >>
+        Find all documents:
+            db.collectionName.find({})
+
+        Find documents with specific criteria :
+            db.collectionName.find({ age: { $gt: 25 } })
+
+        Find first Document:
+            db.collectionName.findOne({ name: "Alice" })
+
+    Update >>
+        Update a single Document:
+            db.collectionName.updateOne({ name: "Alice" }, { $set: { age: 31 } })
+        
+        Update multiple Documents:
+            db.collectionName.updateMany({ age: { $lt: 30 } }, { $inc: { age: 1 } })
+
+    Delete >>
+        Delete a single Document:
+            db.collectionName.deleteOne({ name: "Bob" })
+
+        Delete multiple Documents:
+            db.collectionName.deleteMany({ age: 40 })   
+
+    ..# Replace collectionName with the actual name of your collection.
+
+
+==Comparison Operators
+
+    Equality:
+        $eq >> Checks for exact equality between a field and a value
+            { age: { $eq: 30 } } finds documents where the "age" field is equal to 30
+
+    Inequality:
+        $gt >> Greater than 
+            { quantity: { $gt: 10 } } finds documents where the "quantity" field is greater than 10.
+        $gte >> Greater than or equal to
+            { price: { $gte: 25.99 } } finds documents where the "price" field is greater than or equal to 25.99.
+        $lt >> Less than
+        $lte >> Less than or equal to
+    
+    Membership:
+        $in >> checks if a field value exists within a specified array of values
+            { category: { $in: ["books", "movies"] } } finds documents where the "category" field is either "books" or "movies".
+        $nin >> Checks if a field's value does not exist within a specified array of values (NOT IN)
+            { size: { $nin: ["small", "medium"] } } finds documents where the "size" field is not "small" or "medium".
+
+    Regular Expression:
+        $regex >> Performs regular expression pattern matching on string fields.
+            { name: { $regex: /.*^A.*/ } } finds documents where the "name" field starts with the letter "A" (including variations like "Alice" or "Apple").  
+
+
+==Logical Operators
+
+    $and >> combines multiple conditions using $and , A document matches the query only if all of the specified conditions in the $and array are true.
+        db.products.find({
+            $and: [
+                { price: { $gt: 20 } },  
+                { category: "electronics" }  
+            ]
+        })
+        This query finds products where the price is greater than 20 AND the category is "electronics".
+
+    $or >> Combines multiples conditions using logical OR , A document match the query if atleast one of the specified conditions in the $or array is true. 
+        db.users.find({
+            $or: [
+                { age: { $gt: 30 } },  
+                { city: "New York" }  
+            ]
+        })
+        This query finds users where either the age is greater than 30 OR the city is "New York".
+
+    $not >> Inverts the logic of a single comparison expression.A document matches the query if the comparison following $not evaluates to false
+        db.orders.find({
+            $not: { status: "shipped" }  
+        })
+        This query finds orders where the status is not "shipped".
+
+    $nor >> Combines multiple conditions using logical NOR. (Less commonly used).A document matches the query only if none of the specified conditions in the $nor array are true. (Think of it as the opposite of $and).
+        db.books.find({
+            $nor: [
+                { category: "fiction" },  // NOT fiction
+                { author: "John Doe" }  // NOT by John Doe
+            ]
+        })
+        This query finds books that are neither categorized as fiction nor written by John Doe.
+
+==Update operators 
+
+    $set >> Updates the value of an existing field in a document.
+        db.users.updateOne({ name: "Alice" }, { $set: { age: 31 } })
+        // Updates the "age" field to 31 for the first document where "name" is "Alice".
+    
+    $unset >> Removes a field from a document.
+        db.products.updateOne({ _id: productId }, { $unset: { discontinued: true } })
+        // Removes the "discontinued" field from the product with the specified ID.
+
+    $inc >> Increments (or decrements) the numerical value of a field.
+        db.scores.updateOne({ studentId: 123 }, { $inc: { score: 5 } })
+        // Increments the "score" field by 5 for the document with the specified studentId
+
+    $rename >> Renames a field in a document.
+        db.orders.updateOne({ _id: orderId }, { $rename: { "customerEmail": "contact" } })
+        // Renames the "customerEmail" field to "contact" for the order with the specified ID.
+   
+    $addToSet >> Adds a unique value to an array field in a document. If the value already exists, it won't be added again.
+        db.tasks.updateOne({ taskId: 1 }, { $addToSet: { tags: "important" } })
+        // Adds the tag "important" to the "tags" array for the task with the specified ID, only if it doesn't exist already.
+
+
+==Aggregation Pipeline Operators (not strictly update operators)
+
+    sort() >> Sorts the results of an aggregation pipeline based on a specified field(s) in ascending or descending order.
+
+    skip() >>  Skips a certain number of documents at the beginning of the results from an aggregation pipeline.
+
+    limit() >>  Limits the number of documents returned in the results of an aggregation pipeline.
+
+    example of above 3 operators:
+        db.products.find({})
+            .sort({ price: -1 })  // Sort by price (descending)
+            .skip(5)               // Skip the first 5 documents
+            .limit(10)              // Limit to the next 10 documents 
+
+
+==upsert()
+
+    upsert is a method that is used to insert and update the value in any operation.
+    The mongoDB upsert method is a combination of insert and update.
+    By default, the upset method's value is always false.
+
+    If the document matches the specified query and the method's value is set to true, the update operation will update the matching documents.
+
+    If the document does not match the specified query and the method value is true,this method inserts a new document in the collection. 
+    
+    This new document contains the fields that indicate the operation.
+
+
+==upsert vs save
+
+    If a document exists with the specified _id value, the save() method performs an update, replacing all fields in the existing record with the fields from the document.
+
+
+==Array Update Operators
+
+    $push >> Adds an element to an array.
+    $pop >>  Removes the first or last element from an array.
+    $pull >> Removes all instances of a value from an array.
+    $pullAll >>  Removes all instances of specified values from an array.
+    $ (Positional Operator) >> Used to update the first array element that matches a specified condition.
+    $addToSet >> Adds an element to an array only if the element does not already exist in the array.
+    
+
+==Array query Operators
+
+    $all >> Matches arrays that contain all elements specified in the query.
+    $size >> Selects documents if the array field is a specified size.
+    $elemMatch >> Matches documents that contain an array field with at least one element that matches all the specified query criteria.
+
+
+==Field Existence Operator
+
+    $exists >> Checks for the existence of a field in a document
+    db.collection.find({ field: { $exists: true } })
+
+
