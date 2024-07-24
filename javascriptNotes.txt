@@ -1,0 +1,98 @@
+Prototype
+
+in js, every object has a prototype.its like a hidden blueprint that provides default properties and methods fo that object. 
+fort example => all arrays have a prototype that defines methods like  push,pop,length etc.
+
+
+prototype pollution 
+
+when an attacker can modify the prototype of a built in javascript object.this change affects all objects created from that prototype.
+
+
+To summarize ==> prototypes are like blueprints for objects in js.
+             ==>  Prototype pollution is when someone changes this blueprint, affecting all objects based on it.
+
+
+
+=================================
+
+
+
+eval()
+
+
+Imagine you have a magical box. You can write any secret code on a piece of paper, put it in the box, and the box will figure out what it means and do it.
+
+in js, it takes a string of javascript code and runs it as if you had typed it directly in to your script.
+
+let result = eval('2 + 3');
+console.log(result); // Output: 5
+
+In this example, eval() takes the string '2 + 3' and treats it as a mathematical expression, calculating the result to be 5.
+
+=============================
+
+Deep copying 
+
+A deep copy creates a new object with entirely new memory locations for all its properties, including nested objects and arrays.
+If you change the deep copy, it won't affect the original object.
+
+for deepcopy
+
+const originalObject = {
+    name: 'Alice',
+    address: {
+      street: '123 Main St',
+      city: 'Anytown'
+    }
+};
+
+const deepCopy = JSON.parse(JSON.stringify(originalObject));
+
+=====================================
+
+Ecmascript
+
+It's a set of rules and guidelines for creating scripting languages.
+Other languages like ActionScript (used in Flash) also follow ECMAScript.
+ECMAScript is updated regularly to introduce new features and improve the language.
+
+ECMAScript is the backbone of JavaScript. It provides the fundamental structure and rules that make JavaScript work consistently across different browsers and environments.
+
+=======================================
+
+
+Proxy object
+
+it sites between you and the original object, intercepting your requests and potentially modifying them before passing them on.
+
+key points : => Interception: A proxy can intercept operations like getting or setting   properties, calling functions, etc.
+             => Customization: You can customize how these operations behave. For example, you could validate input, log actions, or even prevent certain operations.
+             => Transparent: The code using the Proxy doesn't know it's de
+             aling with a Proxy; it thinks it's interacting with the original object.
+
+
+
+============================================
+
+JIT (just-in-time)
+
+what is JIT?
+
+A special type of computer program that makes javascript code run faster .
+instead of translating all the code at once, it waits until the code is actually used and then translates into a language the computer understands really well.
+This makes the code run much quicker.
+
+so , JIT helps javascript run faster by translating code only when needed.
+
+
+===========================================
+
+(e) => {return e} vs (e) => (e) 
+
+
+(e) => (e) ==== no need of return statement
+(e) => {return e}  ====== should give return statement . so , (e) => {return e} ,this is correct.
+
+
+==========================================
