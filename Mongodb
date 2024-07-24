@@ -261,3 +261,173 @@
     db.collection.find({ field: { $exists: true } })
 
 
+==TTL index
+
+    TTL stands for 'Time To Live" . 
+    A TTL index is a special type of index in mongodb that automatically removes documents from a collection after a specified amount of time .
+
+    example >>
+
+    Session data: Store session information for a limited time and automatically invalidate expired sessions.
+
+    Temporary data: Store temporary data that needs to be removed after a certain period.
+
+
+==Redundancy
+
+    Redundancy in mongodb is achieved primarily through replication. This means creating multiple copies of your data accross different database servers.  
+
+    How it works>>>
+        Replica set : A group of servers that maintain same data set through replication
+        Primary Server : Receives all write operations and records changes in an oplog
+        Secondary Servers : copy and apply changes from the oplog asynchrounously
+        Automatically failover : If the Primary server fails, a secondary is automatically elected as the new primary.
+    
+    Benefits >>>
+        High Availability : Ensures continous access to data even if a server fails.
+        Disaster recovery : Protects against data loss due to hardware failures or other catastrophic events.  
+
+
+==Replication
+
+    Creates multiple copies of a complete dataset accross different servers (replica set)
+    Focus on data redundancy and availability.
+
+
+==Sharding
+
+    Divides a large dataset into smaller subsets (shards) stored on different servers.
+    Focus on Data distribution and scailability.
+
+    shard key : : A field or combination of fields in your documents used to determine which shard will store a particular document
+    Config servers : These servers store metadata about the sharded cluster, including the location of data and the configuration of shards.
+
+
+==ACID( Atomicity, Consistency, Isolation, Durability )
+
+    ACID is a set of properties that guarantee data integrity in a database.
+
+    Atomicity = All operations within a transaction happen as a single unit. Either evrything completes successfully, or nothing changes.
+    Consistency = The database always move fro one valid state to another.
+    Isolation = Transactions operate independently. One transaction doesn't interfere with another.
+    Durability = Once a transaction is complete , the changes are permenent  and wont be lost, even if there is a power outage or system failure.
+
+
+
+==Journaling
+
+    It is a mechanism in Mongodb that ensures data durability and recovery.It's like keeping a diary of all changes made to your database.
+
+    Write operations = When you insert, update, or delete data, MongoDB first records these changes in a special log file called the journal.
+
+    Committing changes = After a certain interval (configurable), MongoDB writes these changes to the main data files.
+
+    Recovery = If MongoDB crashes before committing changes, the journal can be used to replay the unwritten changes to the data files, ensuring data consistency.
+
+
+
+==CAP Theorem
+
+    The CAP Theorem is a fundamental principle in distributed systems. it states that a distributed system can only guarantee two of the following three properties:
+
+    Consistency = All nodes in the system see the same data at the same time.
+    Availability = The system is always available and able to process requests.
+    Partition Tolerence = The system continues to operate even if part of the system is unavailable.
+
+    MongoDB prioritizes Availability and Partition Tolerence, making it an AP database.
+
+
+==Election
+
+    In a MongoDB replica set, the primary is the instance responsible for handling read and write operations. To ensure high availability and data durability, MongoDB employs a robust election process to choose a new primary when the current one fails or becomes unreachable.
+
+
+==Transactions
+
+    MongoDB transactions ensure data integrity and consistency by treating a group of operations as a single unit of work.
+    This means either all operations within a transaction are completed successfully,or none of them are applied.
+
+
+
+==MongoDB utilities
+
+    MongoDB provides a set of tools to help you manage your database efficiently.
+
+    mongoexport = Extracts data from a mongoDB collection and saves it as a JSON or CSV file.its like downloading data from your database.
+
+    mongoimport = Loads data into a mongoDB collection from a JSON or CSV file. its like uploading data into your database.
+
+    mongodumb = creates a backup of your entire database or specific collections in a binary format.
+
+    mongorestore = restores a database or specific collections from a backup created by mongodumb
+
+    mongostat = displays real-time statistics about your MongoDB servers performance.
+
+    mongotop = shows the top databases, collections ,and operations based on current read and write activity.
+
+
+
+
+==Normalization
+
+    Breaking data into multiple collections with references for data integrity.
+
+==Denormalization
+
+    Combining data within documents for faster read performance
+
+
+
+==Alias
+
+    In MongoDB, an alias is a different name you can use for a field or variable in a query or aggregation. It lets you change the name of the field or variable in the results without changing the original data.
+
+    example >>
+
+        Assume you have a collection called users with documents like this:
+
+            {
+                "_id": 1,
+                "firstName": "John",
+                "lastName": "Doe",
+                "age": 30
+            }
+
+        You can use an alias to rename the firstName field to name in the result:
+
+            db.users.aggregate([
+                {
+                    $project: {
+                        name: "$firstName",
+                        lastName: 1,
+                        age: 1
+                    }
+                }
+            ])
+
+        The result will look like this:
+
+            {
+            "_id": 1,
+            "name": "John",
+            "lastName": "Doe",
+            "age": 30
+            }
+
+
+
+
+
+==GridFS
+
+    Gridfs ia a specification for storing and retrieving larg files in mongoDB. it allows you to store files that exceed the BSON-document size limit of 16 MB.
+    GridFS divides file into smaller chunks and stores each chunk as a separate document, making it possible to store and retrieve files of any size.
+
+
+
+==IXSCAN
+    Index Scan: MongoDB uses an index to efficiently locate documents matching the query criteria.
+
+
+==COLLSCAN
+    Collection Scan: MongoDB scans the entire collection to find matching documents.
