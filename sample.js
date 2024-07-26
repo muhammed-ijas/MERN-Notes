@@ -332,7 +332,78 @@
 // console.log(person);
 
 
-const sum = ((a)=> {return a}
-)
+// const sum = ((a)=> {return a}
+// )
 
-console.log(sum(10));
+// console.log(sum(10));
+
+
+
+
+
+
+
+
+
+
+//forEach
+
+// let array = [1,2,3,4,5]
+// let flag=false;
+// let i;
+// array.forEach((n,index)=>{
+//     if(n==3){
+//         flag=true;
+//         i=index;
+//         return;
+//     }
+// })
+
+// if(flag){
+//     console.log(`found in ${i} `);
+// }
+
+
+
+
+//set
+
+// const arr = [1,2,3,4,3,2,4,5,6,7,5,6,8,5,7,9,5,6,4]
+
+// const set = new Set(arr)
+
+// console.log(set);
+// console.log(set.has(5));
+// set.delete(5)
+// console.log(set.has(5));
+// console.log(set);
+// set.add(10)
+// console.log(set);
+
+
+
+//map
+
+// const map = new Map([['a',1],['b',2]])
+
+// console.log(map);
+
+// map.set('c',3)
+
+// console.log(map);
+
+// map.delete('a')
+
+// console.log(map);
+
+// for(const [key,value] of map){
+//     console.log(`${key}   ,,,, ${value}`);
+// }
+
+// map.clear()
+
+// console.log(map);
+
+
+
+
